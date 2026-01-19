@@ -129,9 +129,9 @@ const translations = {
       title2: 'Úžasné',
       readyTitle: 'Pripravení začať váš projekt?',
       readyDescription: 'Kontaktujte nás a porozprávajme sa o tom, ako vám môžeme pomôcť oživiť vašu víziu.',
-      address: '123 Innovation Street, Tech City',
-      email: 'hello@nexusstudio.com',
-      phone: '+1 (555) 123-4567'
+      address: 'Bratislava, Slovensko',
+      email: 'nexusskweb@gmail.com',
+      phone: '+421 944 110 266'
     },
     // Contact Page Modal
     contactPage: {
@@ -304,9 +304,9 @@ const translations = {
       title2: 'Amazing',
       readyTitle: 'Ready to start your project?',
       readyDescription: "Get in touch with us and let's discuss how we can help bring your vision to life.",
-      address: '123 Innovation Street, Tech City',
-      email: 'hello@nexusstudio.com',
-      phone: '+1 (555) 123-4567'
+      address: 'Bratislava, Slovakia',
+      email: 'nexusskweb@gmail.com',
+      phone: '+421 944 110 266'
     },
     // Contact Page Modal
     contactPage: {
