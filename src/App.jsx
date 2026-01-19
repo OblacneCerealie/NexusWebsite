@@ -118,9 +118,9 @@ const translations = {
       tag: 'Referencie',
       title1: 'Čo Hovoria',
       title2: 'Naši Klienti',
-      quote: '"Nexus premenil našu zastaranú webovú stránku na úžasný digitálny zážitok. Naše konverzie vzrástli o 200% počas prvého mesiaca. Absolútne neuveriteľný tím!"',
-      author: 'Sarah Mitchell',
-      role: 'CEO, TechVentures Inc.'
+      quote: '"Vynikajúci tím mi pomohol zrealizovať moje sny, efektívny, nápomocný a veľmi dobré ceny. Odporúčam, oveľa lepšie než veľké korporáty ktoré na vás nebudú mať čas."',
+      author: 'Oliver Kocian',
+      role: 'Spokojný Klient'
     },
     // Contact Section
     contactSection: {
@@ -293,9 +293,9 @@ const translations = {
       tag: 'Testimonials',
       title1: 'What Our',
       title2: 'Clients Say',
-      quote: '"Nexus transformed our outdated website into a stunning digital experience. Our conversions increased by 200% within the first month. Absolutely incredible team!"',
-      author: 'Sarah Mitchell',
-      role: 'CEO, TechVentures Inc.'
+      quote: '"An excellent team helped me realize my dreams, efficient, helpful and very good prices. I highly recommend them, much better than large corporations that won\'t have time for you."',
+      author: 'Oliver Kocian',
+      role: 'Satisfied Client'
     },
     // Contact Section
     contactSection: {
