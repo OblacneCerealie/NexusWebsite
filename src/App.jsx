@@ -1,8 +1,371 @@
-import { useState, useEffect, useRef, Suspense } from 'react'
+import { useState, useEffect, useRef, Suspense, createContext, useContext } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial, OrbitControls, Sparkles, Stars } from '@react-three/drei'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
+
+// Language Context
+const LanguageContext = createContext()
+
+// Translations
+const translations = {
+  sk: {
+    // Navigation
+    nav: {
+      services: 'Služby',
+      work: 'Portfólio',
+      process: 'Proces',
+      contact: 'Kontakt',
+      startProject: 'Začať Projekt'
+    },
+    // Hero
+    hero: {
+      badge: 'Dostupní pre nové projekty',
+      title1: 'Tvoríme',
+      title2: 'Digitálne Zážitky',
+      title3: 'Ktoré Majú Zmysel',
+      description: 'Oceňované webové štúdio vytvárajúce krásne, vysoko výkonné webové stránky a aplikácie, ktoré pomáhajú firmám prosperovať v digitálnom veku.',
+      viewWork: 'Pozrieť Práce',
+      getInTouch: 'Kontaktujte Nás'
+    },
+    // Stats
+    stats: {
+      projects: 'Dokončených Projektov',
+      clients: 'Spokojných Klientov',
+      experience: 'Roky Skúseností',
+      team: 'Členov Tímu'
+    },
+    // Services
+    services: {
+      tag: 'Naše Služby',
+      title1: 'Všetko Čo Potrebujete na',
+      title2: 'Úspech Online',
+      description: 'Od konceptu po spustenie, riešime každý aspekt vašej digitálnej prítomnosti s precíznosťou a kreativitou.',
+      items: [
+        {
+          icon: '🚀',
+          title: 'Vývoj Webov',
+          description: 'Vlastné webové stránky vytvorené s najmodernejšími technológiami, ktoré rastú s vašim podnikaním.',
+          features: ['React & Next.js', 'Optimalizovaný Výkon', 'SEO Pripravené', 'Mobile First']
+        },
+        {
+          icon: '🎨',
+          title: 'UI/UX Dizajn',
+          description: 'Krásne, intuitívne rozhrania, ktoré potešia používateľov a zvýšia konverzie.',
+          features: ['Výskum Používateľov', 'Wireframing', 'Prototypovanie', 'Dizajn Systémy']
+        },
+        {
+          icon: '⚡',
+          title: 'Webové Aplikácie',
+          description: 'Výkonné webové aplikácie s real-time funkciami a bezproblémovým používateľským zážitkom.',
+          features: ['Real-time Dáta', 'Cloud Integrácia', 'API Vývoj', 'Autentifikácia']
+        },
+        {
+          icon: '📱',
+          title: 'Mobilné Aplikácie',
+          description: 'Multiplatformové mobilné aplikácie, ktoré vyzerajú natívne na každom zariadení.',
+          features: ['React Native', 'iOS & Android', 'Push Notifikácie', 'Offline Podpora']
+        },
+        {
+          icon: '🛒',
+          title: 'E-Commerce',
+          description: 'Online obchody, ktoré konvertujú návštevníkov na zákazníkov s plynulým procesom nákupu.',
+          features: ['Platobná Integrácia', 'Správa Skladu', 'Analytika', 'Multi-mena']
+        },
+        {
+          icon: '🔧',
+          title: 'Údržba',
+          description: 'Udržujte vaše digitálne produkty v bezproblémovom chode s našou nepretržitou podporou.',
+          features: ['24/7 Monitoring', 'Pravidelné Aktualizácie', 'Bezpečnostné Záplaty', 'Zálohy']
+        }
+      ]
+    },
+    // Portfolio
+    portfolio: {
+      tag: 'Naša Práca',
+      title1: 'Projekty Ktoré',
+      title2: 'Hovoria Samy Za Seba',
+      description: 'Ukážka našej najlepšej práce naprieč rôznymi odvetviami a technológiami.',
+      items: [
+        { title: 'Nova Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'] },
+        { title: 'Artisan Market', category: 'E-Commerce', tags: ['Next.js', 'Stripe'] },
+        { title: 'FitTrack Pro', category: 'Zdravotná Appka', tags: ['React Native', 'Firebase'] },
+        { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
+        { title: 'EcoLogistics', category: 'Dodávateľský Reťazec', tags: ['Angular', 'Python'] }
+      ]
+    },
+    // Tech
+    tech: {
+      tag: 'Technológie',
+      title1: 'Poháňané',
+      title2: 'Modernou Technikou'
+    },
+    // Process
+    process: {
+      tag: 'Náš Proces',
+      title1: 'Od Nápadu po',
+      title2: 'Spustenie',
+      description: 'Náš overený proces zabezpečuje, že váš projekt bude dodaný včas a prekoná očakávania.',
+      steps: [
+        { number: '01', title: 'Objavovanie', description: 'Ponoríme sa hlboko do vašich cieľov, publika a konkurencie.' },
+        { number: '02', title: 'Dizajn', description: 'Vytvárame krásne rozhrania, ktoré rozprávajú váš príbeh.' },
+        { number: '03', title: 'Vývoj', description: 'Budujeme s čistým kódom a modernými technológiami.' },
+        { number: '04', title: 'Nasadenie', description: 'Spustenie s istotou a nepretržitou podporou.' }
+      ]
+    },
+    // Testimonials
+    testimonials: {
+      tag: 'Referencie',
+      title1: 'Čo Hovoria',
+      title2: 'Naši Klienti',
+      quote: '"Nexus premenil našu zastaranú webovú stránku na úžasný digitálny zážitok. Naše konverzie vzrástli o 200% počas prvého mesiaca. Absolútne neuveriteľný tím!"',
+      author: 'Sarah Mitchell',
+      role: 'CEO, TechVentures Inc.'
+    },
+    // Contact Section
+    contactSection: {
+      tag: 'Kontaktujte Nás',
+      title1: 'Poďme Vytvoriť Niečo',
+      title2: 'Úžasné',
+      readyTitle: 'Pripravení začať váš projekt?',
+      readyDescription: 'Kontaktujte nás a porozprávajme sa o tom, ako vám môžeme pomôcť oživiť vašu víziu.',
+      address: '123 Innovation Street, Tech City',
+      email: 'hello@nexusstudio.com',
+      phone: '+1 (555) 123-4567'
+    },
+    // Contact Page Modal
+    contactPage: {
+      tag: 'Kontaktujte Nás',
+      title1: 'Začnime Váš',
+      title2: 'Projekt',
+      description: 'Pripravení oživiť vašu víziu? Vyplňte formulár nižšie a ozveme sa vám do 24 hodín.',
+      formTitle: 'Pošlite nám správu',
+      nameLabel: 'Vaše Meno',
+      namePlaceholder: 'Ján Novák',
+      emailLabel: 'E-mailová Adresa',
+      emailPlaceholder: 'jan@priklad.sk',
+      messageLabel: 'Vaša Správa',
+      messagePlaceholder: 'Povedzte nám o vašom projekte...',
+      sendButton: 'Odoslať Správu',
+      sending: 'Odosielam...',
+      contactInfo: 'Kontaktné Informácie',
+      addressLabel: 'Adresa',
+      emailLabelShort: 'Email',
+      phoneLabel: 'Telefón',
+      followUs: 'Sledujte Nás',
+      followDescription: 'Zostaňte v spojení a sledujte našu najnovšiu prácu',
+      quickResponse: 'Rýchla Odpoveď',
+      quickResponseDesc: 'Zvyčajne odpovedáme do 24 hodín'
+    },
+    // Footer
+    footer: {
+      description: 'Oceňované webové štúdio vytvárajúce digitálne zážitky, ktoré pomáhajú firmám prosperovať v modernom svete.',
+      services: 'Služby',
+      webDev: 'Vývoj Webov',
+      uiux: 'UI/UX Dizajn',
+      mobileApps: 'Mobilné Aplikácie',
+      ecommerce: 'E-Commerce',
+      company: 'Spoločnosť',
+      aboutUs: 'O Nás',
+      ourTeam: 'Náš Tím',
+      careers: 'Kariéra',
+      contact: 'Kontakt',
+      resources: 'Zdroje',
+      blog: 'Blog',
+      caseStudies: 'Prípadové Štúdie',
+      documentation: 'Dokumentácia',
+      support: 'Podpora',
+      copyright: '© 2026 Nexus Web Studio. Všetky práva vyhradené.'
+    },
+    // Success Modal
+    successModal: {
+      title: 'Ďakujeme za správu!',
+      description: 'Čoskoro vás budeme kontaktovať e-mailom.',
+      close: 'Zavrieť'
+    }
+  },
+  en: {
+    // Navigation
+    nav: {
+      services: 'Services',
+      work: 'Work',
+      process: 'Process',
+      contact: 'Contact',
+      startProject: 'Start Project'
+    },
+    // Hero
+    hero: {
+      badge: 'Available for new projects',
+      title1: 'We Build',
+      title2: 'Digital Experiences',
+      title3: 'That Matter',
+      description: 'Award-winning web studio crafting beautiful, high-performance websites and applications that help businesses thrive in the digital age.',
+      viewWork: 'View Our Work',
+      getInTouch: 'Get In Touch'
+    },
+    // Stats
+    stats: {
+      projects: 'Projects Completed',
+      clients: 'Happy Clients',
+      experience: 'Years Experience',
+      team: 'Team Members'
+    },
+    // Services
+    services: {
+      tag: 'Our Services',
+      title1: 'Everything You Need to',
+      title2: 'Succeed Online',
+      description: 'From concept to launch, we handle every aspect of your digital presence with precision and creativity.',
+      items: [
+        {
+          icon: '🚀',
+          title: 'Web Development',
+          description: 'Custom websites built with cutting-edge technologies that scale with your business.',
+          features: ['React & Next.js', 'Performance Optimized', 'SEO Ready', 'Mobile First']
+        },
+        {
+          icon: '🎨',
+          title: 'UI/UX Design',
+          description: 'Beautiful, intuitive interfaces that delight users and drive conversions.',
+          features: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems']
+        },
+        {
+          icon: '⚡',
+          title: 'Web Applications',
+          description: 'Powerful web apps with real-time features and seamless user experiences.',
+          features: ['Real-time Data', 'Cloud Integration', 'API Development', 'Authentication']
+        },
+        {
+          icon: '📱',
+          title: 'Mobile Apps',
+          description: 'Cross-platform mobile applications that feel native on every device.',
+          features: ['React Native', 'iOS & Android', 'Push Notifications', 'Offline Support']
+        },
+        {
+          icon: '🛒',
+          title: 'E-Commerce',
+          description: 'Online stores that convert visitors into customers with smooth checkout flows.',
+          features: ['Payment Integration', 'Inventory Management', 'Analytics', 'Multi-currency']
+        },
+        {
+          icon: '🔧',
+          title: 'Maintenance',
+          description: 'Keep your digital products running smoothly with our ongoing support.',
+          features: ['24/7 Monitoring', 'Regular Updates', 'Security Patches', 'Backups']
+        }
+      ]
+    },
+    // Portfolio
+    portfolio: {
+      tag: 'Our Work',
+      title1: 'Projects That',
+      title2: 'Speak For Themselves',
+      description: 'A showcase of our finest work across various industries and technologies.',
+      items: [
+        { title: 'Nova Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'] },
+        { title: 'Artisan Market', category: 'E-Commerce', tags: ['Next.js', 'Stripe'] },
+        { title: 'FitTrack Pro', category: 'Health App', tags: ['React Native', 'Firebase'] },
+        { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
+        { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'] }
+      ]
+    },
+    // Tech
+    tech: {
+      tag: 'Technologies',
+      title1: 'Powered by',
+      title2: 'Modern Tech'
+    },
+    // Process
+    process: {
+      tag: 'Our Process',
+      title1: 'From Idea to',
+      title2: 'Launch',
+      description: 'Our proven process ensures your project is delivered on time and exceeds expectations.',
+      steps: [
+        { number: '01', title: 'Discovery', description: 'We dive deep into your goals, audience, and competition.' },
+        { number: '02', title: 'Design', description: 'Crafting beautiful interfaces that tell your story.' },
+        { number: '03', title: 'Develop', description: 'Building with clean code and modern technologies.' },
+        { number: '04', title: 'Deploy', description: 'Launch with confidence and ongoing support.' }
+      ]
+    },
+    // Testimonials
+    testimonials: {
+      tag: 'Testimonials',
+      title1: 'What Our',
+      title2: 'Clients Say',
+      quote: '"Nexus transformed our outdated website into a stunning digital experience. Our conversions increased by 200% within the first month. Absolutely incredible team!"',
+      author: 'Sarah Mitchell',
+      role: 'CEO, TechVentures Inc.'
+    },
+    // Contact Section
+    contactSection: {
+      tag: 'Get In Touch',
+      title1: "Let's Build Something",
+      title2: 'Amazing',
+      readyTitle: 'Ready to start your project?',
+      readyDescription: "Get in touch with us and let's discuss how we can help bring your vision to life.",
+      address: '123 Innovation Street, Tech City',
+      email: 'hello@nexusstudio.com',
+      phone: '+1 (555) 123-4567'
+    },
+    // Contact Page Modal
+    contactPage: {
+      tag: 'Get In Touch',
+      title1: "Let's Start Your",
+      title2: 'Project',
+      description: "Ready to bring your vision to life? Fill out the form below and we'll get back to you within 24 hours.",
+      formTitle: 'Send us a message',
+      nameLabel: 'Your Name',
+      namePlaceholder: 'John Doe',
+      emailLabel: 'Email Address',
+      emailPlaceholder: 'john@example.com',
+      messageLabel: 'Your Message',
+      messagePlaceholder: 'Tell us about your project...',
+      sendButton: 'Send Message',
+      sending: 'Sending...',
+      contactInfo: 'Contact Information',
+      addressLabel: 'Address',
+      emailLabelShort: 'Email',
+      phoneLabel: 'Phone',
+      followUs: 'Follow Us',
+      followDescription: 'Stay connected and see our latest work',
+      quickResponse: 'Quick Response',
+      quickResponseDesc: 'We typically respond within 24 hours'
+    },
+    // Footer
+    footer: {
+      description: 'Award-winning web studio crafting digital experiences that help businesses thrive in the modern world.',
+      services: 'Services',
+      webDev: 'Web Development',
+      uiux: 'UI/UX Design',
+      mobileApps: 'Mobile Apps',
+      ecommerce: 'E-Commerce',
+      company: 'Company',
+      aboutUs: 'About Us',
+      ourTeam: 'Our Team',
+      careers: 'Careers',
+      contact: 'Contact',
+      resources: 'Resources',
+      blog: 'Blog',
+      caseStudies: 'Case Studies',
+      documentation: 'Documentation',
+      support: 'Support',
+      copyright: '© 2026 Nexus Web Studio. All rights reserved.'
+    },
+    // Success Modal
+    successModal: {
+      title: 'Thanks for reaching out!',
+      description: "We'll shortly get in touch with you via email.",
+      close: 'Close'
+    }
+  }
+}
+
+// Custom hook for translations
+function useTranslation() {
+  const { language } = useContext(LanguageContext)
+  return translations[language]
+}
 
 // 3D Animated Sphere Component
 function AnimatedSphere({ position, color, speed = 1, distort = 0.4 }) {
@@ -254,6 +617,9 @@ function ProcessStep({ number, title, description, delay }) {
 
 // Success Modal Component
 function SuccessModal({ isOpen, onClose }) {
+  const { language } = useContext(LanguageContext)
+  const t = translations[language]
+  
   return (
     <AnimatePresence>
       {isOpen && (
@@ -273,15 +639,15 @@ function SuccessModal({ isOpen, onClose }) {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             <div className="modal-icon">✓</div>
-            <h3>Thanks for reaching out!</h3>
-            <p>We'll shortly get in touch with you via email.</p>
+            <h3>{t.successModal.title}</h3>
+            <p>{t.successModal.description}</p>
             <motion.button
               className="modal-close-button"
               onClick={onClose}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Close
+              {t.successModal.close}
             </motion.button>
           </motion.div>
         </>
@@ -292,6 +658,9 @@ function SuccessModal({ isOpen, onClose }) {
 
 // Full Contact Page Modal
 function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handleSubmit, isSubmitting }) {
+  const { language } = useContext(LanguageContext)
+  const t = translations[language]
+  
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -345,9 +714,9 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <span className="section-tag">Get In Touch</span>
-              <h1>Let's Start Your <span className="gradient-text">Project</span></h1>
-              <p>Ready to bring your vision to life? Fill out the form below and we'll get back to you within 24 hours.</p>
+              <span className="section-tag">{t.contactPage.tag}</span>
+              <h1>{t.contactPage.title1} <span className="gradient-text">{t.contactPage.title2}</span></h1>
+              <p>{t.contactPage.description}</p>
             </motion.div>
 
             <div className="contact-page-grid">
@@ -359,34 +728,34 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                 transition={{ delay: 0.2 }}
                 onSubmit={handleSubmit}
               >
-                <h3>Send us a message</h3>
+                <h3>{t.contactPage.formTitle}</h3>
                 <div className="form-group">
-                  <label>Your Name</label>
+                  <label>{t.contactPage.nameLabel}</label>
                   <input
                     type="text"
                     name="name"
-                    placeholder="John Doe"
+                    placeholder={t.contactPage.namePlaceholder}
                     value={formData.name}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email Address</label>
+                  <label>{t.contactPage.emailLabel}</label>
                   <input
                     type="email"
                     name="email"
-                    placeholder="john@example.com"
+                    placeholder={t.contactPage.emailPlaceholder}
                     value={formData.email}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>Your Message</label>
+                  <label>{t.contactPage.messageLabel}</label>
                   <textarea
                     name="message"
-                    placeholder="Tell us about your project..."
+                    placeholder={t.contactPage.messagePlaceholder}
                     value={formData.message}
                     onChange={handleInputChange}
                     required
@@ -400,7 +769,7 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                   whileTap={{ scale: 0.98 }}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? t.contactPage.sending : t.contactPage.sendButton}
                 </motion.button>
               </motion.form>
 
@@ -413,27 +782,27 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
               >
                 {/* Contact Details Card */}
                 <div className="contact-info-card glass-card">
-                  <h3>Contact Information</h3>
+                  <h3>{t.contactPage.contactInfo}</h3>
                   <div className="contact-details-list">
                     <div className="contact-detail-item">
                       <div className="contact-icon">📍</div>
                       <div>
-                        <h4>Address</h4>
-                        <p>123 Innovation Street, Tech City</p>
+                        <h4>{t.contactPage.addressLabel}</h4>
+                        <p>{t.contactSection.address}</p>
                       </div>
                     </div>
                     <div className="contact-detail-item">
                       <div className="contact-icon">📧</div>
                       <div>
-                        <h4>Email</h4>
-                        <p>hello@nexusstudio.com</p>
+                        <h4>{t.contactPage.emailLabelShort}</h4>
+                        <p>{t.contactSection.email}</p>
                       </div>
                     </div>
                     <div className="contact-detail-item">
                       <div className="contact-icon">📞</div>
                       <div>
-                        <h4>Phone</h4>
-                        <p>+1 (555) 123-4567</p>
+                        <h4>{t.contactPage.phoneLabel}</h4>
+                        <p>{t.contactSection.phone}</p>
                       </div>
                     </div>
                   </div>
@@ -441,8 +810,8 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
 
                 {/* Social Media Card */}
                 <div className="social-media-card glass-card">
-                  <h3>Follow Us</h3>
-                  <p>Stay connected and see our latest work</p>
+                  <h3>{t.contactPage.followUs}</h3>
+                  <p>{t.contactPage.followDescription}</p>
                   <div className="social-links-grid">
                     <motion.a
                       href="https://twitter.com"
@@ -522,8 +891,8 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                 >
                   <div className="response-icon">⚡</div>
                   <div>
-                    <h4>Quick Response</h4>
-                    <p>We typically respond within 24 hours</p>
+                    <h4>{t.contactPage.quickResponse}</h4>
+                    <p>{t.contactPage.quickResponseDesc}</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -535,8 +904,30 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
   )
 }
 
+// Language Toggle Component
+function LanguageToggle() {
+  const { language, setLanguage } = useContext(LanguageContext)
+  
+  return (
+    <motion.button
+      className="language-toggle"
+      onClick={() => setLanguage(language === 'sk' ? 'en' : 'sk')}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <span className={language === 'sk' ? 'active' : ''}>SK</span>
+      <span className="divider">/</span>
+      <span className={language === 'en' ? 'active' : ''}>EN</span>
+    </motion.button>
+  )
+}
+
 // Main App Component
 function App() {
+  const [language, setLanguage] = useState('sk')
   const [scrolled, setScrolled] = useState(false)
   const [showContactPage, setShowContactPage] = useState(false)
   const [formData, setFormData] = useState({
@@ -549,6 +940,8 @@ function App() {
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
+  
+  const t = translations[language]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -623,60 +1016,20 @@ function App() {
     }
   }
 
-  const services = [
-    {
-      icon: '🚀',
-      title: 'Web Development',
-      description: 'Custom websites built with cutting-edge technologies that scale with your business.',
-      features: ['React & Next.js', 'Performance Optimized', 'SEO Ready', 'Mobile First']
-    },
-    {
-      icon: '🎨',
-      title: 'UI/UX Design',
-      description: 'Beautiful, intuitive interfaces that delight users and drive conversions.',
-      features: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems']
-    },
-    {
-      icon: '⚡',
-      title: 'Web Applications',
-      description: 'Powerful web apps with real-time features and seamless user experiences.',
-      features: ['Real-time Data', 'Cloud Integration', 'API Development', 'Authentication']
-    },
-    {
-      icon: '📱',
-      title: 'Mobile Apps',
-      description: 'Cross-platform mobile applications that feel native on every device.',
-      features: ['React Native', 'iOS & Android', 'Push Notifications', 'Offline Support']
-    },
-    {
-      icon: '🛒',
-      title: 'E-Commerce',
-      description: 'Online stores that convert visitors into customers with smooth checkout flows.',
-      features: ['Payment Integration', 'Inventory Management', 'Analytics', 'Multi-currency']
-    },
-    {
-      icon: '🔧',
-      title: 'Maintenance',
-      description: 'Keep your digital products running smoothly with our ongoing support.',
-      features: ['24/7 Monitoring', 'Regular Updates', 'Security Patches', 'Backups']
-    }
-  ]
-
-  const portfolio = [
-    { title: 'Nova Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'], large: true },
-    { title: 'Artisan Market', category: 'E-Commerce', tags: ['Next.js', 'Stripe'] },
-    { title: 'FitTrack Pro', category: 'Health App', tags: ['React Native', 'Firebase'] },
-    { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
-    { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'], large: true }
-  ]
-
   const techStack = [
     'React', 'Next.js', 'Vue.js', 'Angular', 'Node.js', 'Python', 'TypeScript',
     'GraphQL', 'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'Figma'
   ]
+  
+  // Get translated data
+  const services = t.services.items
+  const portfolio = t.portfolio.items.map((item, index) => ({
+    ...item,
+    large: index === 0 || index === 4
+  }))
 
   return (
-    <>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
       {/* 3D Background */}
       <div className="canvas-container">
         <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
@@ -709,22 +1062,25 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Work</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#services">{t.nav.services}</a></li>
+          <li><a href="#portfolio">{t.nav.work}</a></li>
+          <li><a href="#process">{t.nav.process}</a></li>
+          <li><a href="#contact">{t.nav.contact}</a></li>
         </motion.ul>
-        <motion.button
-          className="cta-button"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowContactPage(true)}
-        >
-          Start Project
-        </motion.button>
+        <div className="nav-right">
+          <LanguageToggle />
+          <motion.button
+            className="cta-button"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowContactPage(true)}
+          >
+            {t.nav.startProject}
+          </motion.button>
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -737,7 +1093,7 @@ function App() {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <span></span>
-            Available for new projects
+            {t.hero.badge}
           </motion.div>
           
           <motion.h1
@@ -745,9 +1101,9 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            We Build{' '}
-            <span className="gradient-text">Digital Experiences</span>{' '}
-            That Matter
+            {t.hero.title1}{' '}
+            <span className="gradient-text">{t.hero.title2}</span>{' '}
+            {t.hero.title3}
           </motion.h1>
           
           <motion.p
@@ -755,8 +1111,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            Award-winning web studio crafting beautiful, high-performance websites 
-            and applications that help businesses thrive in the digital age.
+            {t.hero.description}
           </motion.p>
           
           <motion.div
@@ -772,7 +1127,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
               style={{ textDecoration: 'none' }}
             >
-              View Our Work
+              {t.hero.viewWork}
             </motion.a>
             <motion.button
               className="secondary-button"
@@ -780,7 +1135,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowContactPage(true)}
             >
-              Get In Touch
+              {t.hero.getInTouch}
             </motion.button>
           </motion.div>
         </div>
@@ -798,7 +1153,7 @@ function App() {
           <div className="stat-number gradient-text">
             <Counter end={25} suffix="+" />
           </div>
-          <div className="stat-label">Projects Completed</div>
+          <div className="stat-label">{t.stats.projects}</div>
         </motion.div>
         <motion.div
           className="stat-item"
@@ -810,7 +1165,7 @@ function App() {
           <div className="stat-number gradient-text">
             <Counter end={10} suffix="+" />
           </div>
-          <div className="stat-label">Happy Clients</div>
+          <div className="stat-label">{t.stats.clients}</div>
         </motion.div>
         <motion.div
           className="stat-item"
@@ -822,7 +1177,7 @@ function App() {
           <div className="stat-number gradient-text">
             <Counter end={2} />
           </div>
-          <div className="stat-label">Years Experience</div>
+          <div className="stat-label">{t.stats.experience}</div>
         </motion.div>
         <motion.div
           className="stat-item"
@@ -834,7 +1189,7 @@ function App() {
           <div className="stat-number gradient-text">
             <Counter end={4} />
           </div>
-          <div className="stat-label">Team Members</div>
+          <div className="stat-label">{t.stats.team}</div>
         </motion.div>
       </section>
 
@@ -847,7 +1202,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Our Services
+            {t.services.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -855,8 +1210,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Everything You Need to{' '}
-            <span className="gradient-text">Succeed Online</span>
+            {t.services.title1}{' '}
+            <span className="gradient-text">{t.services.title2}</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -864,8 +1219,7 @@ function App() {
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            From concept to launch, we handle every aspect of your digital presence
-            with precision and creativity.
+            {t.services.description}
           </motion.p>
         </div>
         <div className="services-grid">
@@ -884,7 +1238,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Our Work
+            {t.portfolio.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -892,8 +1246,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Projects That{' '}
-            <span className="gradient-text">Speak For Themselves</span>
+            {t.portfolio.title1}{' '}
+            <span className="gradient-text">{t.portfolio.title2}</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -901,7 +1255,7 @@ function App() {
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            A showcase of our finest work across various industries and technologies.
+            {t.portfolio.description}
           </motion.p>
         </div>
         <div className="portfolio-grid">
@@ -920,7 +1274,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Technologies
+            {t.tech.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -928,8 +1282,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Powered by{' '}
-            <span className="gradient-text">Modern Tech</span>
+            {t.tech.title1}{' '}
+            <span className="gradient-text">{t.tech.title2}</span>
           </motion.h2>
         </div>
         <div className="tech-carousel">
@@ -950,7 +1304,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Our Process
+            {t.process.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -958,8 +1312,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            From Idea to{' '}
-            <span className="gradient-text">Launch</span>
+            {t.process.title1}{' '}
+            <span className="gradient-text">{t.process.title2}</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -967,14 +1321,13 @@ function App() {
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Our proven process ensures your project is delivered on time and exceeds expectations.
+            {t.process.description}
           </motion.p>
         </div>
         <div className="process-grid">
-          <ProcessStep number="01" title="Discovery" description="We dive deep into your goals, audience, and competition." delay={0} />
-          <ProcessStep number="02" title="Design" description="Crafting beautiful interfaces that tell your story." delay={0.1} />
-          <ProcessStep number="03" title="Develop" description="Building with clean code and modern technologies." delay={0.2} />
-          <ProcessStep number="04" title="Deploy" description="Launch with confidence and ongoing support." delay={0.3} />
+          {t.process.steps.map((step, index) => (
+            <ProcessStep key={index} number={step.number} title={step.title} description={step.description} delay={index * 0.1} />
+          ))}
         </div>
       </section>
 
@@ -987,7 +1340,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Testimonials
+            {t.testimonials.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -995,8 +1348,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            What Our{' '}
-            <span className="gradient-text">Clients Say</span>
+            {t.testimonials.title1}{' '}
+            <span className="gradient-text">{t.testimonials.title2}</span>
           </motion.h2>
         </div>
         <motion.div
@@ -1007,14 +1360,13 @@ function App() {
           viewport={{ once: true }}
         >
           <blockquote>
-            "Nexus transformed our outdated website into a stunning digital experience. 
-            Our conversions increased by 200% within the first month. Absolutely incredible team!"
+            {t.testimonials.quote}
           </blockquote>
           <div className="testimonial-author">
             <div className="author-avatar"></div>
             <div className="author-info">
-              <h5>Sarah Mitchell</h5>
-              <p>CEO, TechVentures Inc.</p>
+              <h5>{t.testimonials.author}</h5>
+              <p>{t.testimonials.role}</p>
             </div>
           </div>
         </motion.div>
@@ -1029,7 +1381,7 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Get In Touch
+            {t.contactSection.tag}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -1037,8 +1389,8 @@ function App() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Let's Build Something{' '}
-            <span className="gradient-text">Amazing</span>
+            {t.contactSection.title1}{' '}
+            <span className="gradient-text">{t.contactSection.title2}</span>
           </motion.h2>
         </div>
         <motion.div
@@ -1049,53 +1401,53 @@ function App() {
           viewport={{ once: true }}
         >
           <div className="contact-info">
-            <h3>Ready to start your project?</h3>
+            <h3>{t.contactSection.readyTitle}</h3>
             <p>
-              Get in touch with us and let's discuss how we can help bring your vision to life.
+              {t.contactSection.readyDescription}
             </p>
             <div className="contact-details">
               <div className="contact-item">
                 <span>📍</span>
-                <span>123 Innovation Street, Tech City</span>
+                <span>{t.contactSection.address}</span>
               </div>
               <div className="contact-item">
                 <span>📧</span>
-                <span>hello@nexusstudio.com</span>
+                <span>{t.contactSection.email}</span>
               </div>
               <div className="contact-item">
                 <span>📞</span>
-                <span>+1 (555) 123-4567</span>
+                <span>{t.contactSection.phone}</span>
               </div>
             </div>
           </div>
           <form className="contact-form glass-card" style={{ padding: '2rem' }} onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Your Name</label>
+              <label>{t.contactPage.nameLabel}</label>
               <input 
                 type="text" 
                 name="name"
-                placeholder="John Doe" 
+                placeholder={t.contactPage.namePlaceholder}
                 value={formData.name}
                 onChange={handleInputChange}
                 required
               />
             </div>
             <div className="form-group">
-              <label>Email Address</label>
+              <label>{t.contactPage.emailLabel}</label>
               <input 
                 type="email" 
                 name="email"
-                placeholder="john@example.com" 
+                placeholder={t.contactPage.emailPlaceholder}
                 value={formData.email}
                 onChange={handleInputChange}
                 required
               />
             </div>
             <div className="form-group">
-              <label>Your Message</label>
+              <label>{t.contactPage.messageLabel}</label>
               <textarea 
                 name="message"
-                placeholder="Tell us about your project..." 
+                placeholder={t.contactPage.messagePlaceholder}
                 value={formData.message}
                 onChange={handleInputChange}
                 required
@@ -1109,7 +1461,7 @@ function App() {
               whileTap={{ scale: 0.98 }}
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? t.contactPage.sending : t.contactPage.sendButton}
             </motion.button>
           </form>
         </motion.div>
@@ -1137,40 +1489,39 @@ function App() {
           <div className="footer-brand">
             <div className="logo gradient-text">NEXUS</div>
             <p>
-              Award-winning web studio crafting digital experiences that help businesses 
-              thrive in the modern world.
+              {t.footer.description}
             </p>
           </div>
           <div className="footer-links">
-            <h5>Services</h5>
+            <h5>{t.footer.services}</h5>
             <ul>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">UI/UX Design</a></li>
-              <li><a href="#">Mobile Apps</a></li>
-              <li><a href="#">E-Commerce</a></li>
+              <li><a href="#">{t.footer.webDev}</a></li>
+              <li><a href="#">{t.footer.uiux}</a></li>
+              <li><a href="#">{t.footer.mobileApps}</a></li>
+              <li><a href="#">{t.footer.ecommerce}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h5>Company</h5>
+            <h5>{t.footer.company}</h5>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Our Team</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="#">{t.footer.aboutUs}</a></li>
+              <li><a href="#">{t.footer.ourTeam}</a></li>
+              <li><a href="#">{t.footer.careers}</a></li>
+              <li><a href="#">{t.footer.contact}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h5>Resources</h5>
+            <h5>{t.footer.resources}</h5>
             <ul>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Case Studies</a></li>
-              <li><a href="#">Documentation</a></li>
-              <li><a href="#">Support</a></li>
+              <li><a href="#">{t.footer.blog}</a></li>
+              <li><a href="#">{t.footer.caseStudies}</a></li>
+              <li><a href="#">{t.footer.documentation}</a></li>
+              <li><a href="#">{t.footer.support}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2026 Nexus Web Studio. All rights reserved.</p>
+          <p>{t.footer.copyright}</p>
           <div className="social-links">
             <a href="#">𝕏</a>
             <a href="#">in</a>
@@ -1179,7 +1530,7 @@ function App() {
           </div>
         </div>
       </footer>
-    </>
+    </LanguageContext.Provider>
   )
 }
 
