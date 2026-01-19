@@ -290,9 +290,255 @@ function SuccessModal({ isOpen, onClose }) {
   )
 }
 
+// Full Contact Page Modal
+function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handleSubmit, isSubmitting }) {
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="contact-page-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Background with same gradient */}
+          <div className="contact-page-bg">
+            <div className="floating-shapes">
+              <div className="shape shape-1"></div>
+              <div className="shape shape-2"></div>
+              <div className="shape shape-3"></div>
+            </div>
+          </div>
+
+          {/* Close Button */}
+          <motion.button
+            className="contact-page-close"
+            onClick={onClose}
+            initial={{ opacity: 0, rotate: -90 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            exit={{ opacity: 0, rotate: 90 }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            ✕
+          </motion.button>
+
+          {/* Content */}
+          <div className="contact-page-content">
+            <motion.div
+              className="contact-page-header"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <span className="section-tag">Get In Touch</span>
+              <h1>Let's Start Your <span className="gradient-text">Project</span></h1>
+              <p>Ready to bring your vision to life? Fill out the form below and we'll get back to you within 24 hours.</p>
+            </motion.div>
+
+            <div className="contact-page-grid">
+              {/* Contact Form */}
+              <motion.form
+                className="contact-page-form glass-card"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                onSubmit={handleSubmit}
+              >
+                <h3>Send us a message</h3>
+                <div className="form-group">
+                  <label>Your Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Your Message</label>
+                  <textarea
+                    name="message"
+                    placeholder="Tell us about your project..."
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                  ></textarea>
+                </div>
+                <motion.button
+                  type="submit"
+                  className="cta-button"
+                  style={{ width: '100%' }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </motion.button>
+              </motion.form>
+
+              {/* Contact Info & Social */}
+              <motion.div
+                className="contact-page-info"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                {/* Contact Details Card */}
+                <div className="contact-info-card glass-card">
+                  <h3>Contact Information</h3>
+                  <div className="contact-details-list">
+                    <div className="contact-detail-item">
+                      <div className="contact-icon">📍</div>
+                      <div>
+                        <h4>Address</h4>
+                        <p>123 Innovation Street, Tech City</p>
+                      </div>
+                    </div>
+                    <div className="contact-detail-item">
+                      <div className="contact-icon">📧</div>
+                      <div>
+                        <h4>Email</h4>
+                        <p>hello@nexusstudio.com</p>
+                      </div>
+                    </div>
+                    <div className="contact-detail-item">
+                      <div className="contact-icon">📞</div>
+                      <div>
+                        <h4>Phone</h4>
+                        <p>+1 (555) 123-4567</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Social Media Card */}
+                <div className="social-media-card glass-card">
+                  <h3>Follow Us</h3>
+                  <p>Stay connected and see our latest work</p>
+                  <div className="social-links-grid">
+                    <motion.a
+                      href="https://twitter.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon twitter">𝕏</div>
+                      <span>Twitter</span>
+                    </motion.a>
+                    <motion.a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon linkedin">in</div>
+                      <span>LinkedIn</span>
+                    </motion.a>
+                    <motion.a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon instagram">◎</div>
+                      <span>Instagram</span>
+                    </motion.a>
+                    <motion.a
+                      href="https://dribbble.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon dribbble">●</div>
+                      <span>Dribbble</span>
+                    </motion.a>
+                    <motion.a
+                      href="https://github.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon github">⌘</div>
+                      <span>GitHub</span>
+                    </motion.a>
+                    <motion.a
+                      href="https://behance.net"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link-item"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="social-icon behance">Bē</div>
+                      <span>Behance</span>
+                    </motion.a>
+                  </div>
+                </div>
+
+                {/* Quick Response Badge */}
+                <motion.div
+                  className="response-badge glass-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="response-icon">⚡</div>
+                  <div>
+                    <h4>Quick Response</h4>
+                    <p>We typically respond within 24 hours</p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 // Main App Component
 function App() {
   const [scrolled, setScrolled] = useState(false)
+  const [showContactPage, setShowContactPage] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -475,6 +721,7 @@ function App() {
           transition={{ duration: 0.5, delay: 0.4 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => setShowContactPage(true)}
         >
           Start Project
         </motion.button>
@@ -518,17 +765,20 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            <motion.button
+            <motion.a
+              href="#portfolio"
               className="cta-button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              style={{ textDecoration: 'none' }}
             >
               View Our Work
-            </motion.button>
+            </motion.a>
             <motion.button
               className="secondary-button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setShowContactPage(true)}
             >
               Get In Touch
             </motion.button>
@@ -546,7 +796,7 @@ function App() {
           viewport={{ once: true }}
         >
           <div className="stat-number gradient-text">
-            <Counter end={150} suffix="+" />
+            <Counter end={25} suffix="+" />
           </div>
           <div className="stat-label">Projects Completed</div>
         </motion.div>
@@ -558,7 +808,7 @@ function App() {
           viewport={{ once: true }}
         >
           <div className="stat-number gradient-text">
-            <Counter end={50} suffix="+" />
+            <Counter end={10} suffix="+" />
           </div>
           <div className="stat-label">Happy Clients</div>
         </motion.div>
@@ -570,7 +820,7 @@ function App() {
           viewport={{ once: true }}
         >
           <div className="stat-number gradient-text">
-            <Counter end={8} />
+            <Counter end={2} />
           </div>
           <div className="stat-label">Years Experience</div>
         </motion.div>
@@ -582,7 +832,7 @@ function App() {
           viewport={{ once: true }}
         >
           <div className="stat-number gradient-text">
-            <Counter end={15} />
+            <Counter end={4} />
           </div>
           <div className="stat-label">Team Members</div>
         </motion.div>
@@ -869,6 +1119,16 @@ function App() {
       <SuccessModal 
         isOpen={showSuccessModal} 
         onClose={() => setShowSuccessModal(false)} 
+      />
+
+      {/* Contact Page Modal */}
+      <ContactPageModal
+        isOpen={showContactPage}
+        onClose={() => setShowContactPage(false)}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
       />
 
       {/* Footer */}
