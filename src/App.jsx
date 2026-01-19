@@ -33,7 +33,7 @@ const translations = {
       projects: 'Dokončených Projektov',
       clients: 'Spokojných Klientov',
       experience: 'Roky Skúseností',
-      team: 'Členov Tímu'
+      team: 'Členovia Tímu'
     },
     // Services
     services: {
