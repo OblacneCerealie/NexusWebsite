@@ -252,9 +252,54 @@ function ProcessStep({ number, title, description, delay }) {
   )
 }
 
+// Success Modal Component
+function SuccessModal({ isOpen, onClose }) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
+          <motion.div
+            className="success-modal"
+            initial={{ opacity: 0, scale: 0.8, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 50 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          >
+            <div className="modal-icon">✓</div>
+            <h3>Thanks for reaching out!</h3>
+            <p>We'll shortly get in touch with you via email.</p>
+            <motion.button
+              className="modal-close-button"
+              onClick={onClose}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Close
+            </motion.button>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
 // Main App Component
 function App() {
   const [scrolled, setScrolled] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
   const { scrollYProgress } = useScroll()
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
@@ -266,6 +311,71 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      // Using Web3Forms - Simple and free email service
+      // Get your free API key at: https://web3forms.com/
+      // Just enter your email (placeholder@gmail.com) and get instant API key
+      // No account creation needed, works immediately!
+      
+      const web3formsAccessKey = 'YOUR_WEB3FORMS_ACCESS_KEY' // Get from https://web3forms.com/
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: web3formsAccessKey,
+          subject: `New Contact Form Submission from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+          to: 'placeholder@gmail.com' // Recipient email address
+        })
+      })
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message')
+      }
+
+      // Show success modal
+      setShowSuccessModal(true)
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      })
+    } catch (error) {
+      console.error('Error sending email:', error)
+      alert(`Sorry, there was an error sending your message: ${error.message}. Please make sure you have set up Web3Forms (get free API key at web3forms.com) or check the console for details.`)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const services = [
     {
@@ -708,18 +818,38 @@ function App() {
               </div>
             </div>
           </div>
-          <form className="contact-form glass-card" style={{ padding: '2rem' }}>
+          <form className="contact-form glass-card" style={{ padding: '2rem' }} onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Your Name</label>
-              <input type="text" placeholder="John Doe" />
+              <input 
+                type="text" 
+                name="name"
+                placeholder="John Doe" 
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label>Email Address</label>
-              <input type="email" placeholder="john@example.com" />
+              <input 
+                type="email" 
+                name="email"
+                placeholder="john@example.com" 
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label>Your Message</label>
-              <textarea placeholder="Tell us about your project..."></textarea>
+              <textarea 
+                name="message"
+                placeholder="Tell us about your project..." 
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+              ></textarea>
             </div>
             <motion.button
               type="submit"
@@ -727,12 +857,19 @@ function App() {
               style={{ width: '100%' }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </motion.button>
           </form>
         </motion.div>
       </section>
+
+      {/* Success Modal */}
+      <SuccessModal 
+        isOpen={showSuccessModal} 
+        onClose={() => setShowSuccessModal(false)} 
+      />
 
       {/* Footer */}
       <footer className="footer">
