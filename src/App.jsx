@@ -972,10 +972,13 @@ function App() {
     try {
       // Using Web3Forms - Simple and free email service
       // Get your free API key at: https://web3forms.com/
-      // Just enter your email (placeholder@gmail.com) and get instant API key
-      // No account creation needed, works immediately!
+      // API key is stored in .env file for security
       
-      const web3formsAccessKey = 'YOUR_WEB3FORMS_ACCESS_KEY' // Get from https://web3forms.com/
+      const web3formsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+      
+      if (!web3formsAccessKey) {
+        throw new Error('Web3Forms API key is not configured. Please set VITE_WEB3FORMS_ACCESS_KEY in your .env file.')
+      }
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -999,6 +1002,9 @@ function App() {
         throw new Error(result.message || 'Failed to send message')
       }
 
+      // Close contact modal if open
+      setShowContactPage(false)
+      
       // Show success modal
       setShowSuccessModal(true)
       
