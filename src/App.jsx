@@ -87,8 +87,8 @@ const translations = {
       title2: 'Hovoria Samy Za Seba',
       description: 'Ukážka našej najlepšej práce naprieč rôznymi odvetviami a technológiami.',
       items: [
-        { title: 'Nova Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'] },
-        { title: 'Artisan Market', category: 'E-Commerce', tags: ['Next.js', 'Stripe'] },
+        { title: 'Nexus Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
+        { title: 'Nexus Medical', category: 'Zdravotníctvo', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
         { title: 'FitTrack Pro', category: 'Zdravotná Appka', tags: ['React Native', 'Firebase'] },
         { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
         { title: 'EcoLogistics', category: 'Dodávateľský Reťazec', tags: ['Angular', 'Python'] }
@@ -118,9 +118,33 @@ const translations = {
       tag: 'Referencie',
       title1: 'Čo Hovoria',
       title2: 'Naši Klienti',
-      quote: '"Vynikajúci tím mi pomohol zrealizovať moje sny, efektívny, nápomocný a veľmi dobré ceny. Odporúčam, oveľa lepšie než veľké korporáty ktoré na vás nebudú mať čas."',
-      author: 'Oliver Kocian',
-      role: 'Spokojný Klient'
+      reviews: [
+        {
+          quote: '"Vynikajúci tím mi pomohol zrealizovať moje sny, efektívny, nápomocný a veľmi dobré ceny. Odporúčam, oveľa lepšie než veľké korporáty ktoré na vás nebudú mať čas."',
+          author: 'Oliver Kocian',
+          role: 'Spokojný Klient'
+        },
+        {
+          quote: '"Placeholder recenzia - Michal Bača. Tu bude text recenzie."',
+          author: 'Michal Bača',
+          role: 'Spokojný Klient'
+        },
+        {
+          quote: '"Placeholder recenzia - Jakub Krajňak. Tu bude text recenzie."',
+          author: 'Jakub Krajňak',
+          role: 'Spokojný Klient'
+        },
+        {
+          quote: '"Placeholder recenzia - Patrícia Mikulová. Tu bude text recenzie."',
+          author: 'Patrícia Mikulová',
+          role: 'Spokojná Klientka'
+        },
+        {
+          quote: '"Placeholder recenzia - Michal Konečný. Tu bude text recenzie."',
+          author: 'Michal Konečný',
+          role: 'Spokojný Klient'
+        }
+      ]
     },
     // Contact Section
     contactSection: {
@@ -262,8 +286,8 @@ const translations = {
       title2: 'Speak For Themselves',
       description: 'A showcase of our finest work across various industries and technologies.',
       items: [
-        { title: 'Nova Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'] },
-        { title: 'Artisan Market', category: 'E-Commerce', tags: ['Next.js', 'Stripe'] },
+        { title: 'Nexus Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
+        { title: 'Nexus Medical', category: 'Healthcare', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
         { title: 'FitTrack Pro', category: 'Health App', tags: ['React Native', 'Firebase'] },
         { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
         { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'] }
@@ -293,9 +317,33 @@ const translations = {
       tag: 'Testimonials',
       title1: 'What Our',
       title2: 'Clients Say',
-      quote: '"An excellent team helped me realize my dreams, efficient, helpful and very good prices. I highly recommend them, much better than large corporations that won\'t have time for you."',
-      author: 'Oliver Kocian',
-      role: 'Satisfied Client'
+      reviews: [
+        {
+          quote: '"An excellent team helped me realize my dreams, efficient, helpful and very good prices. I highly recommend them, much better than large corporations that won\'t have time for you."',
+          author: 'Oliver Kocian',
+          role: 'Satisfied Client'
+        },
+        {
+          quote: '"Placeholder review - Michal Bača. Review text will go here."',
+          author: 'Michal Bača',
+          role: 'Satisfied Client'
+        },
+        {
+          quote: '"Placeholder review - Jakub Krajňak. Review text will go here."',
+          author: 'Jakub Krajňak',
+          role: 'Satisfied Client'
+        },
+        {
+          quote: '"Placeholder review - Patrícia Mikulová. Review text will go here."',
+          author: 'Patrícia Mikulová',
+          role: 'Satisfied Client'
+        },
+        {
+          quote: '"Placeholder review - Michal Konečný. Review text will go here."',
+          author: 'Michal Konečný',
+          role: 'Satisfied Client'
+        }
+      ]
     },
     // Contact Section
     contactSection: {
@@ -575,27 +623,51 @@ function ServiceCard({ icon, title, description, features, delay }) {
 }
 
 // Portfolio Item Component
-function PortfolioItem({ title, category, tags, large, delay }) {
-  return (
+function PortfolioItem({ title, category, large, delay, link, preview }) {
+  const content = (
     <motion.div
-      className={`portfolio-item ${large ? 'large' : ''}`}
+      className={`portfolio-item-wrapper`}
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.03 }}
     >
-      <div className="portfolio-overlay">
+      <motion.div
+        className={`portfolio-item ${large ? 'large' : ''} ${preview ? 'has-preview' : ''}`}
+        whileHover={{ scale: 1.03 }}
+      >
+        {preview && (
+          <div className="portfolio-preview">
+            <iframe
+              src={preview}
+              title={title}
+              loading="lazy"
+              scrolling="no"
+            />
+          </div>
+        )}
+        {link && (
+          <div className="portfolio-hover-overlay">
+            <span className="portfolio-link-hint">↗</span>
+          </div>
+        )}
+      </motion.div>
+      <div className="portfolio-info">
         <h4>{title}</h4>
         <p>{category}</p>
-        <div className="portfolio-tags">
-          {tags.map((tag, index) => (
-            <span key={index}>{tag}</span>
-          ))}
-        </div>
       </div>
     </motion.div>
   )
+  
+  if (link) {
+    return (
+      <a href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+        {content}
+      </a>
+    )
+  }
+  
+  return content
 }
 
 // Process Step Component
@@ -612,6 +684,62 @@ function ProcessStep({ number, title, description, delay }) {
       <h4>{title}</h4>
       <p>{description}</p>
     </motion.div>
+  )
+}
+
+// Testimonial Carousel Component
+function TestimonialCarousel({ reviews }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [resetKey, setResetKey] = useState(0)
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length)
+    }, 5000) // Change every 5 seconds
+    
+    return () => clearInterval(interval)
+  }, [reviews.length, resetKey]) // resetKey dependency restarts the timer
+  
+  const handleDotClick = (index) => {
+    setCurrentIndex(index)
+    setResetKey((prev) => prev + 1) // Reset the timer
+  }
+  
+  return (
+    <div className="testimonial-carousel">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          className="testimonial-card glass-card"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.5 }}
+        >
+          <blockquote>
+            {reviews[currentIndex].quote}
+          </blockquote>
+          <div className="testimonial-author">
+            <div className="author-avatar"></div>
+            <div className="author-info">
+              <h5>{reviews[currentIndex].author}</h5>
+              <p>{reviews[currentIndex].role}</p>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+      
+      {/* Dots indicator */}
+      <div className="testimonial-dots">
+        {reviews.map((_, index) => (
+          <button
+            key={index}
+            className={`testimonial-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => handleDotClick(index)}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -1358,24 +1486,7 @@ function App() {
             <span className="gradient-text">{t.testimonials.title2}</span>
           </motion.h2>
         </div>
-        <motion.div
-          className="testimonial-card glass-card"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <blockquote>
-            {t.testimonials.quote}
-          </blockquote>
-          <div className="testimonial-author">
-            <div className="author-avatar"></div>
-            <div className="author-info">
-              <h5>{t.testimonials.author}</h5>
-              <p>{t.testimonials.role}</p>
-            </div>
-          </div>
-        </motion.div>
+        <TestimonialCarousel reviews={t.testimonials.reviews} />
       </section>
 
       {/* Contact Section */}
