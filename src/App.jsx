@@ -120,28 +120,28 @@ const translations = {
       title2: 'Naši Klienti',
       reviews: [
         {
-          quote: '"Vynikajúci tím mi pomohol zrealizovať moje sny, efektívny, nápomocný a veľmi dobré ceny. Odporúčam, oveľa lepšie než veľké korporáty ktoré na vás nebudú mať čas."',
-          author: 'Oliver Kocian',
+          quote: '"Je to tím webových vývojárov, ktorí vedia dodať moderné a funkčné riešenia. Ak hľadáte niekoho, kto berie prácu vážne a má dobrý pocit pre detail, je to dobrá voľba."',
+          author: 'Oliver K.',
           role: 'Spokojný Klient'
         },
         {
-          quote: '"Placeholder recenzia - Michal Bača. Tu bude text recenzie."',
-          author: 'Michal Bača',
+          quote: '"Placeholder recenzia - Michal B. Tu bude text recenzie."',
+          author: 'Michal B.',
           role: 'Spokojný Klient'
         },
         {
-          quote: '"Placeholder recenzia - Jakub Krajňak. Tu bude text recenzie."',
-          author: 'Jakub Krajňak',
+          quote: '"Placeholder recenzia - Jakub K. Tu bude text recenzie."',
+          author: 'Jakub K.',
           role: 'Spokojný Klient'
         },
         {
-          quote: '"Placeholder recenzia - Patrícia Mikulová. Tu bude text recenzie."',
-          author: 'Patrícia Mikulová',
+          quote: '"Dopadlo to presne podľa mojich predstáv. Je to presne to, o čo som si požiadala. Dynamické, farebné a výstižné pre našu firmu. Veľmi dobre ste vybrali farebnú kombináciu. Sto krát vám ďakujeme."',
+          author: 'Patrícia M.',
           role: 'Spokojná Klientka'
         },
         {
-          quote: '"Placeholder recenzia - Michal Konečný. Tu bude text recenzie."',
-          author: 'Michal Konečný',
+          quote: '"Placeholder recenzia - Michal K. Tu bude text recenzie."',
+          author: 'Michal K.',
           role: 'Spokojný Klient'
         }
       ]
@@ -319,28 +319,28 @@ const translations = {
       title2: 'Clients Say',
       reviews: [
         {
-          quote: '"An excellent team helped me realize my dreams, efficient, helpful and very good prices. I highly recommend them, much better than large corporations that won\'t have time for you."',
-          author: 'Oliver Kocian',
+          quote: '"This is a team of web developers who know how to deliver modern and functional solutions. If you\'re looking for someone who takes work seriously and has a good eye for detail, this is a great choice."',
+          author: 'Oliver K.',
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Michal Bača. Review text will go here."',
-          author: 'Michal Bača',
+          quote: '"Placeholder review - Michal B. Review text will go here."',
+          author: 'Michal B.',
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Jakub Krajňak. Review text will go here."',
-          author: 'Jakub Krajňak',
+          quote: '"Placeholder review - Jakub K. Review text will go here."',
+          author: 'Jakub K.',
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Patrícia Mikulová. Review text will go here."',
-          author: 'Patrícia Mikulová',
+          quote: '"It turned out exactly as I imagined. It\'s exactly what I asked for. Dynamic, colorful and fitting for our company. You chose the color combination very well. Thank you a hundred times."',
+          author: 'Patrícia M.',
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Michal Konečný. Review text will go here."',
-          author: 'Michal Konečný',
+          quote: '"Placeholder review - Michal K. Review text will go here."',
+          author: 'Michal K.',
           role: 'Satisfied Client'
         }
       ]
