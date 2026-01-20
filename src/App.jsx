@@ -89,7 +89,7 @@ const translations = {
       items: [
         { title: 'Nexus Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
         { title: 'Nexus Medical', category: 'Zdravotníctvo', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
-        { title: 'FitTrack Pro', category: 'Zdravotná Appka', tags: ['React Native', 'Firebase'] },
+        { title: 'Nexus Clothes', category: 'Čistá štýlová odevná značka', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
         { title: 'EcoLogistics', category: 'Dodávateľský Reťazec', tags: ['Angular', 'Python'] }
       ]
@@ -288,7 +288,7 @@ const translations = {
       items: [
         { title: 'Nexus Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
         { title: 'Nexus Medical', category: 'Healthcare', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
-        { title: 'FitTrack Pro', category: 'Health App', tags: ['React Native', 'Firebase'] },
+        { title: 'Nexus Clothes', category: 'Clean stylish clothing brand', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'CloudSync', category: 'SaaS Dashboard', tags: ['Vue.js', 'GraphQL'] },
         { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'] }
       ]
