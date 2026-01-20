@@ -296,6 +296,32 @@ body {
   pointer-events: none;
 }
 
+/* Ensure all sections appear above 3D background */
+section,
+.stats,
+.services,
+.portfolio,
+.tech-stack,
+.process,
+.testimonials,
+.contact,
+footer {
+  position: relative;
+  z-index: 5;
+}
+
+.section-header {
+  position: relative;
+  z-index: 10;
+}
+
+.section-header h2,
+.section-header p,
+.section-tag {
+  position: relative;
+  z-index: 10;
+}
+
 /* Stats Section */
 .stats {
   display: grid;
