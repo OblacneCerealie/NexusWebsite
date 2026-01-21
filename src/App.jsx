@@ -91,6 +91,7 @@ const translations = {
         { title: 'Nexus Medical', category: 'Zdravotníctvo', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
         { title: 'Nexus Clothes', category: 'Čistá štýlová odevná značka', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'Nexus Bar', category: 'Bar & Reštaurácia', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
+        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
         { title: 'EcoLogistics', category: 'Dodávateľský Reťazec', tags: ['Angular', 'Python'] }
       ]
     },
@@ -274,6 +275,7 @@ const translations = {
         { title: 'Nexus Medical', category: 'Healthcare', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
         { title: 'Nexus Clothes', category: 'Clean stylish clothing brand', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'Nexus Bar', category: 'Bar & Restaurant', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
+        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
         { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'] }
       ]
     },
