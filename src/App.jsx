@@ -125,12 +125,12 @@ const translations = {
           role: 'Spokojný Klient'
         },
         {
-          quote: '"Placeholder recenzia - Michal B. Tu bude text recenzie."',
+          quote: '"Úžasný tím, vždy ťažko pracujúci a veľmi ochotný!"',
           author: 'Michal B.',
           role: 'Spokojný Klient'
         },
         {
-          quote: '"Placeholder recenzia - Jakub K. Tu bude text recenzie."',
+          quote: '"Dobrá komunikácia a veľmi rýchle vypracovanie projektu. Odporúčam!"',
           author: 'Jakub K.',
           role: 'Spokojný Klient'
         },
@@ -140,7 +140,7 @@ const translations = {
           role: 'Spokojná Klientka'
         },
         {
-          quote: '"Placeholder recenzia - Michal K. Tu bude text recenzie."',
+          quote: '"Príjemne prekvapujúci projekt, všetko vypracované včas a s vysokou kvalitou. Odporúčam!"',
           author: 'Michal K.',
           role: 'Spokojný Klient'
         }
@@ -183,22 +183,6 @@ const translations = {
     },
     // Footer
     footer: {
-      description: 'Oceňované webové štúdio vytvárajúce digitálne zážitky, ktoré pomáhajú firmám prosperovať v modernom svete.',
-      services: 'Služby',
-      webDev: 'Vývoj Webov',
-      uiux: 'UI/UX Dizajn',
-      mobileApps: 'Mobilné Aplikácie',
-      ecommerce: 'E-Commerce',
-      company: 'Spoločnosť',
-      aboutUs: 'O Nás',
-      ourTeam: 'Náš Tím',
-      careers: 'Kariéra',
-      contact: 'Kontakt',
-      resources: 'Zdroje',
-      blog: 'Blog',
-      caseStudies: 'Prípadové Štúdie',
-      documentation: 'Dokumentácia',
-      support: 'Podpora',
       copyright: '© 2026 Nexus Web Studio. Všetky práva vyhradené.'
     },
     // Success Modal
@@ -324,12 +308,12 @@ const translations = {
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Michal B. Review text will go here."',
+          quote: '"Amazing team, always hardworking and very helpful!"',
           author: 'Michal B.',
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Jakub K. Review text will go here."',
+          quote: '"Great communication and very fast project delivery. I recommend them!"',
           author: 'Jakub K.',
           role: 'Satisfied Client'
         },
@@ -339,7 +323,7 @@ const translations = {
           role: 'Satisfied Client'
         },
         {
-          quote: '"Placeholder review - Michal K. Review text will go here."',
+          quote: '"A pleasantly surprising project, everything delivered on time and with high quality. I recommend them!"',
           author: 'Michal K.',
           role: 'Satisfied Client'
         }
@@ -382,22 +366,6 @@ const translations = {
     },
     // Footer
     footer: {
-      description: 'Award-winning web studio crafting digital experiences that help businesses thrive in the modern world.',
-      services: 'Services',
-      webDev: 'Web Development',
-      uiux: 'UI/UX Design',
-      mobileApps: 'Mobile Apps',
-      ecommerce: 'E-Commerce',
-      company: 'Company',
-      aboutUs: 'About Us',
-      ourTeam: 'Our Team',
-      careers: 'Careers',
-      contact: 'Contact',
-      resources: 'Resources',
-      blog: 'Blog',
-      caseStudies: 'Case Studies',
-      documentation: 'Documentation',
-      support: 'Support',
       copyright: '© 2026 Nexus Web Studio. All rights reserved.'
     },
     // Success Modal
@@ -1605,45 +1573,14 @@ function App() {
         <div className="footer-content">
           <div className="footer-brand">
             <div className="logo gradient-text">NEXUS</div>
-            <p>
-              {t.footer.description}
-            </p>
-          </div>
-          <div className="footer-links">
-            <h5>{t.footer.services}</h5>
-            <ul>
-              <li><a href="#">{t.footer.webDev}</a></li>
-              <li><a href="#">{t.footer.uiux}</a></li>
-              <li><a href="#">{t.footer.mobileApps}</a></li>
-              <li><a href="#">{t.footer.ecommerce}</a></li>
-            </ul>
-          </div>
-          <div className="footer-links">
-            <h5>{t.footer.company}</h5>
-            <ul>
-              <li><a href="#">{t.footer.aboutUs}</a></li>
-              <li><a href="#">{t.footer.ourTeam}</a></li>
-              <li><a href="#">{t.footer.careers}</a></li>
-              <li><a href="#">{t.footer.contact}</a></li>
-            </ul>
-          </div>
-          <div className="footer-links">
-            <h5>{t.footer.resources}</h5>
-            <ul>
-              <li><a href="#">{t.footer.blog}</a></li>
-              <li><a href="#">{t.footer.caseStudies}</a></li>
-              <li><a href="#">{t.footer.documentation}</a></li>
-              <li><a href="#">{t.footer.support}</a></li>
-            </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>{t.footer.copyright}</p>
           <div className="social-links">
-            <a href="#">𝕏</a>
-            <a href="#">in</a>
-            <a href="#">◎</a>
-            <a href="#">▶</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">◎</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">f</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">in</a>
           </div>
         </div>
       </footer>
