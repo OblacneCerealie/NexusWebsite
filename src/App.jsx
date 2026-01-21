@@ -61,10 +61,10 @@ const translations = {
           features: ['Real-time Dáta', 'Cloud Integrácia', 'API Vývoj', 'Autentifikácia']
         },
         {
-          icon: '📱',
-          title: 'Mobilné Aplikácie',
-          description: 'Multiplatformové mobilné aplikácie, ktoré vyzerajú natívne na každom zariadení.',
-          features: ['React Native', 'iOS & Android', 'Push Notifikácie', 'Offline Podpora']
+          icon: '⚡',
+          title: 'Expresné vypracovanie',
+          description: 'Expresné vypracovanie a rýchla komuniácia s našimi klientmi.',
+          features: ['Komunikácia vždy do 24h', 'Váš projekt na prvom mieste', 'Offline Podpora']
         },
         {
           icon: '🛒',
@@ -260,10 +260,10 @@ const translations = {
           features: ['Real-time Data', 'Cloud Integration', 'API Development', 'Authentication']
         },
         {
-          icon: '📱',
-          title: 'Mobile Apps',
-          description: 'Cross-platform mobile applications that feel native on every device.',
-          features: ['React Native', 'iOS & Android', 'Push Notifications', 'Offline Support']
+          icon: '⚡',
+          title: 'Express Delivery',
+          description: 'Express delivery and fast communication with our clients.',
+          features: ['Communication within 24h', 'Your project comes first', 'Offline Support']
         },
         {
           icon: '🛒',
