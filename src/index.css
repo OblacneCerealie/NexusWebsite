@@ -1355,6 +1355,10 @@ footer {
   background: linear-gradient(135deg, #E4405F, #833AB4, #FD1D1D);
 }
 
+.social-icon.facebook {
+  background: linear-gradient(135deg, #1877F2, #0A5F9F);
+}
+
 .social-icon.dribbble {
   background: linear-gradient(135deg, #EA4C89, #C32361);
 }

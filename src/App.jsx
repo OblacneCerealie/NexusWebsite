@@ -910,29 +910,7 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                   <p>{t.contactPage.followDescription}</p>
                   <div className="social-links-grid">
                     <motion.a
-                      href="https://twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link-item"
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <div className="social-icon twitter">𝕏</div>
-                      <span>Twitter</span>
-                    </motion.a>
-                    <motion.a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link-item"
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <div className="social-icon linkedin">in</div>
-                      <span>LinkedIn</span>
-                    </motion.a>
-                    <motion.a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/nexus_slovakia?igsh=MTQzOXQzenNoNTJ5cA%3D%3D&utm_source=qr"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="social-link-item"
@@ -943,37 +921,26 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                       <span>Instagram</span>
                     </motion.a>
                     <motion.a
-                      href="https://dribbble.com"
+                      href="https://facebook.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="social-link-item"
                       whileHover={{ scale: 1.05, y: -5 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <div className="social-icon dribbble">●</div>
-                      <span>Dribbble</span>
+                      <div className="social-icon facebook">f</div>
+                      <span>Facebook</span>
                     </motion.a>
                     <motion.a
-                      href="https://github.com"
+                      href="https://www.linkedin.com/in/sebastian-michalko-1a0602267/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="social-link-item"
                       whileHover={{ scale: 1.05, y: -5 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <div className="social-icon github">⌘</div>
-                      <span>GitHub</span>
-                    </motion.a>
-                    <motion.a
-                      href="https://behance.net"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link-item"
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <div className="social-icon behance">Bē</div>
-                      <span>Behance</span>
+                      <div className="social-icon linkedin">in</div>
+                      <span>LinkedIn</span>
                     </motion.a>
                   </div>
                 </div>
@@ -1578,9 +1545,9 @@ function App() {
         <div className="footer-bottom">
           <p>{t.footer.copyright}</p>
           <div className="social-links">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">◎</a>
+            <a href="https://www.instagram.com/nexus_slovakia?igsh=MTQzOXQzenNoNTJ5cA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">◎</a>
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">f</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">in</a>
+            <a href="https://www.linkedin.com/in/sebastian-michalko-1a0602267/" target="_blank" rel="noopener noreferrer">in</a>
           </div>
         </div>
       </footer>
