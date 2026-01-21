@@ -921,7 +921,7 @@ function ContactPageModal({ isOpen, onClose, formData, handleInputChange, handle
                       <span>Instagram</span>
                     </motion.a>
                     <motion.a
-                      href="https://facebook.com"
+                      href="https://www.facebook.com/share/1DJ9jQmiFA/?mibextid=wwXIfr"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="social-link-item"
@@ -1546,7 +1546,7 @@ function App() {
           <p>{t.footer.copyright}</p>
           <div className="social-links">
             <a href="https://www.instagram.com/nexus_slovakia?igsh=MTQzOXQzenNoNTJ5cA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">◎</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">f</a>
+            <a href="https://www.facebook.com/share/1DJ9jQmiFA/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">f</a>
             <a href="https://www.linkedin.com/in/sebastian-michalko-1a0602267/" target="_blank" rel="noopener noreferrer">in</a>
           </div>
         </div>
