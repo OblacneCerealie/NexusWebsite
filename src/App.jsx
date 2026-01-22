@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Suspense, createContext, useContext } from 'react'
+import React, { useState, useEffect, useRef, Suspense, createContext, useContext, useMemo, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial, OrbitControls, Sparkles, Stars } from '@react-three/drei'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
@@ -92,7 +92,7 @@ const translations = {
         { title: 'Nexus Clothes', category: 'Čistá štýlová odevná značka', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'Nexus Bar', category: 'Bar & Reštaurácia', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
         { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
-        { title: 'EcoLogistics', category: 'Dodávateľský Reťazec', tags: ['Angular', 'Python'] }
+        { title: 'Nexus Phone', category: 'Technológie & Elektronika', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/' }
       ]
     },
     // Tech
@@ -276,7 +276,7 @@ const translations = {
         { title: 'Nexus Clothes', category: 'Clean stylish clothing brand', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
         { title: 'Nexus Bar', category: 'Bar & Restaurant', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
         { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
-        { title: 'EcoLogistics', category: 'Supply Chain', tags: ['Angular', 'Python'] }
+        { title: 'Nexus Phone', category: 'Tech & Electronics', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/' }
       ]
     },
     // Tech
@@ -466,17 +466,21 @@ function AnimatedOctahedron({ position, color }) {
   )
 }
 
-// Particle Field
+// Particle Field - Memoized positions for performance
 function ParticleField() {
   const particlesRef = useRef()
   const count = 500
-  const positions = new Float32Array(count * 3)
   
-  for (let i = 0; i < count * 3; i += 3) {
-    positions[i] = (Math.random() - 0.5) * 25
-    positions[i + 1] = (Math.random() - 0.5) * 25
-    positions[i + 2] = (Math.random() - 0.5) * 25
-  }
+  // Memoize positions so they don't recreate on every render
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3)
+    for (let i = 0; i < count * 3; i += 3) {
+      pos[i] = (Math.random() - 0.5) * 25
+      pos[i + 1] = (Math.random() - 0.5) * 25
+      pos[i + 2] = (Math.random() - 0.5) * 25
+    }
+    return pos
+  }, [])
 
   useFrame((state) => {
     if (particlesRef.current) {
@@ -507,7 +511,7 @@ function ParticleField() {
 }
 
 // 3D Scene
-function Scene3D() {
+const Scene3D = React.memo(function Scene3D() {
   return (
     <>
       <ambientLight intensity={0.2} />
@@ -526,7 +530,7 @@ function Scene3D() {
       <Sparkles count={100} scale={15} size={2} speed={0.4} color="#00d4ff" />
     </>
   )
-}
+})
 
 // Animated Counter
 function Counter({ end, duration = 2, suffix = '' }) {
@@ -569,15 +573,15 @@ function Counter({ end, duration = 2, suffix = '' }) {
   return <span ref={ref}>{count}{suffix}</span>
 }
 
-// Service Card Component
-function ServiceCard({ icon, title, description, features, delay }) {
+// Service Card Component - Memoized
+const ServiceCard = React.memo(function ServiceCard({ icon, title, description, features, delay }) {
   return (
     <motion.div
       className="service-card glass-card"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       whileHover={{ scale: 1.02 }}
     >
       <div className="service-icon">{icon}</div>
@@ -590,32 +594,68 @@ function ServiceCard({ icon, title, description, features, delay }) {
       </ul>
     </motion.div>
   )
+})
+
+// Lazy Portfolio Preview - only loads iframe when visible
+function LazyIframe({ src, title }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '100px', threshold: 0.1 }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={containerRef} className="portfolio-preview">
+      {!isLoaded && (
+        <div className="portfolio-preview-placeholder">
+          <div className="preview-loader"></div>
+        </div>
+      )}
+      {isVisible && (
+        <iframe
+          src={src}
+          title={title}
+          loading="lazy"
+          scrolling="no"
+          onLoad={() => setIsLoaded(true)}
+          style={{ opacity: isLoaded ? 1 : 0 }}
+        />
+      )}
+    </div>
+  )
 }
 
-// Portfolio Item Component
-function PortfolioItem({ title, category, large, delay, link, preview }) {
+// Portfolio Item Component - Memoized for performance
+const PortfolioItem = React.memo(function PortfolioItem({ title, category, large, delay, link, preview }) {
   const content = (
     <motion.div
       className={`portfolio-item-wrapper`}
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
     >
       <motion.div
         className={`portfolio-item ${large ? 'large' : ''} ${preview ? 'has-preview' : ''}`}
         whileHover={{ scale: 1.03 }}
       >
-        {preview && (
-          <div className="portfolio-preview">
-            <iframe
-              src={preview}
-              title={title}
-              loading="lazy"
-              scrolling="no"
-            />
-          </div>
-        )}
+        {preview && <LazyIframe src={preview} title={title} />}
         {link && (
           <div className="portfolio-hover-overlay">
             <span className="portfolio-link-hint">↗</span>
@@ -638,24 +678,24 @@ function PortfolioItem({ title, category, large, delay, link, preview }) {
   }
   
   return content
-}
+})
 
-// Process Step Component
-function ProcessStep({ number, title, description, delay }) {
+// Process Step Component - Memoized
+const ProcessStep = React.memo(function ProcessStep({ number, title, description, delay }) {
   return (
     <motion.div
       className="process-step"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
     >
       <div className="step-number">{number}</div>
       <h4>{title}</h4>
       <p>{description}</p>
     </motion.div>
   )
-}
+})
 
 // Testimonial Carousel Component
 function TestimonialCarousel({ reviews }) {
@@ -1016,13 +1056,13 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
-  }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -1101,9 +1141,18 @@ function App() {
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
-      {/* 3D Background */}
+      {/* 3D Background - Performance optimized */}
       <div className="canvas-container">
-        <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 8], fov: 60 }}
+          dpr={[1, 1.5]} // Limit pixel ratio for performance
+          performance={{ min: 0.5 }}
+          gl={{ 
+            antialias: false, // Disable antialiasing for performance
+            powerPreference: "high-performance",
+            alpha: true
+          }}
+        >
           <Suspense fallback={null}>
             <Scene3D />
           </Suspense>
