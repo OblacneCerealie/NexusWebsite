@@ -86,13 +86,17 @@ const translations = {
       title1: 'Projekty Ktoré',
       title2: 'Hovoria Samy Za Seba',
       description: 'Ukážka našej najlepšej práce naprieč rôznymi odvetviami a technológiami.',
+      seeAll: 'Zobraziť Všetky',
+      galleryTitle: 'Všetky Naše Projekty',
+      galleryDescription: 'Kompletné portfólio našich webových projektov. Kliknite na ktorýkoľvek projekt pre zobrazenie naživo.',
+      backToMain: 'Späť na Hlavnú Stránku',
       items: [
-        { title: 'Nexus Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
-        { title: 'Nexus Medical', category: 'Zdravotníctvo', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
-        { title: 'Nexus Clothes', category: 'Čistá štýlová odevná značka', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
-        { title: 'Nexus Bar', category: 'Bar & Reštaurácia', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
-        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
-        { title: 'Nexus Phone', category: 'Technológie & Elektronika', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/' }
+        { title: 'Nexus Finance', category: 'Fintech Platforma', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusFinance/' },
+        { title: 'Nexus Medical', category: 'Zdravotníctvo', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/nexus-medical/' },
+        { title: 'Nexus Clothes', category: 'Čistá štýlová odevná značka', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusClothes/' },
+        { title: 'Nexus Bar', category: 'Bar & Reštaurácia', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusBar/' },
+        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusFitness/' },
+        { title: 'Nexus Phone', category: 'Technológie & Elektronika', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusPhone/' }
       ]
     },
     // Tech
@@ -270,13 +274,17 @@ const translations = {
       title1: 'Projects That',
       title2: 'Speak For Themselves',
       description: 'A showcase of our finest work across various industries and technologies.',
+      seeAll: 'See All',
+      galleryTitle: 'All Our Projects',
+      galleryDescription: 'Complete portfolio of our web projects. Click on any project to view it live.',
+      backToMain: 'Back to Main Page',
       items: [
-        { title: 'Nexus Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/' },
-        { title: 'Nexus Medical', category: 'Healthcare', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/' },
-        { title: 'Nexus Clothes', category: 'Clean stylish clothing brand', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/' },
-        { title: 'Nexus Bar', category: 'Bar & Restaurant', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/' },
-        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/' },
-        { title: 'Nexus Phone', category: 'Tech & Electronics', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/' }
+        { title: 'Nexus Finance', category: 'Fintech Platform', tags: ['React', 'Node.js', 'AWS'], link: 'https://nexussk.github.io/NexusFinance/', preview: 'https://nexussk.github.io/NexusFinance/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusFinance/' },
+        { title: 'Nexus Medical', category: 'Healthcare', tags: ['React', 'Node.js'], link: 'https://nexussk.github.io/nexus-medical/', preview: 'https://nexussk.github.io/nexus-medical/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/nexus-medical/' },
+        { title: 'Nexus Clothes', category: 'Clean stylish clothing brand', tags: ['React'], link: 'https://nexussk.github.io/NexusClothes/', preview: 'https://nexussk.github.io/NexusClothes/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusClothes/' },
+        { title: 'Nexus Bar', category: 'Bar & Restaurant', tags: ['React'], link: 'https://nexussk.github.io/NexusBar/', preview: 'https://nexussk.github.io/NexusBar/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusBar/' },
+        { title: 'Nexus Fitness', category: 'Fitness & Wellness', tags: ['React'], link: 'https://nexussk.github.io/NexusFitness/', preview: 'https://nexussk.github.io/NexusFitness/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusFitness/' },
+        { title: 'Nexus Phone', category: 'Tech & Electronics', tags: ['Angular', 'Python'], link: 'https://nexussk.github.io/NexusPhone/', preview: 'https://nexussk.github.io/NexusPhone/', screenshot: 'https://image.thum.io/get/width/800/crop/600/https://nexussk.github.io/NexusPhone/' }
       ]
     },
     // Tech
@@ -596,7 +604,20 @@ const ServiceCard = React.memo(function ServiceCard({ icon, title, description, 
   )
 })
 
-// Lazy Portfolio Preview - only loads iframe when visible
+// Helper function to get image path from title (for gallery page)
+function getImagePath(title) {
+  const imageMap = {
+    'Nexus Finance': '/still_images/NexusFinance.png',
+    'Nexus Medical': '/still_images/NexusMedical.png',
+    'Nexus Clothes': '/still_images/NexusClothes.png',
+    'Nexus Bar': '/still_images/NexusBar.png',
+    'Nexus Fitness': '/still_images/NexusFitness.png',
+    'Nexus Phone': '/still_images/NexusPhone.png'
+  }
+  return imageMap[title] || null
+}
+
+// Lazy Portfolio Preview - only loads iframe when visible (for main page - dynamic)
 function LazyIframe({ src, title }) {
   const [isVisible, setIsVisible] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -633,6 +654,53 @@ function LazyIframe({ src, title }) {
           title={title}
           loading="lazy"
           scrolling="no"
+          onLoad={() => setIsLoaded(true)}
+          style={{ opacity: isLoaded ? 1 : 0 }}
+        />
+      )}
+    </div>
+  )
+}
+
+// Lazy Portfolio Image - only loads image when visible (for gallery page - still frame)
+function LazyPortfolioImage({ title }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const containerRef = useRef(null)
+  const imagePath = getImagePath(title)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '100px', threshold: 0.1 }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  if (!imagePath) return null
+
+  return (
+    <div ref={containerRef} className="portfolio-preview">
+      {!isLoaded && (
+        <div className="portfolio-preview-placeholder">
+          <div className="preview-loader"></div>
+        </div>
+      )}
+      {isVisible && (
+        <img
+          src={imagePath}
+          alt={title}
+          loading="lazy"
           onLoad={() => setIsLoaded(true)}
           style={{ opacity: isLoaded ? 1 : 0 }}
         />
@@ -1030,6 +1098,115 @@ function LanguageToggle() {
   )
 }
 
+// Portfolio Gallery Page - Standalone page for all projects
+function PortfolioGalleryPage() {
+  const [language, setLanguage] = useState('sk')
+  const [scrolled, setScrolled] = useState(false)
+  const t = translations[language]
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage }}>
+      <div className="portfolio-gallery-page">
+        {/* Background */}
+        <div className="portfolio-gallery-bg">
+          <div className="floating-shapes">
+            <div className="shape shape-1"></div>
+            <div className="shape shape-2"></div>
+            <div className="shape shape-3"></div>
+          </div>
+        </div>
+
+        {/* Header with logo and language toggle - appears on scroll */}
+        <motion.div 
+          className={`portfolio-gallery-nav ${scrolled ? 'visible' : ''}`}
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: scrolled ? 0 : -100, opacity: scrolled ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <a href="/" className="logo gradient-text">NEXUS</a>
+          <LanguageToggle />
+        </motion.div>
+
+        {/* Content */}
+        <div className="portfolio-gallery-content">
+          <motion.div
+            className="portfolio-gallery-header"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <span className="section-tag">{t.portfolio.tag}</span>
+            <h1>{t.portfolio.galleryTitle}</h1>
+            <p>{t.portfolio.galleryDescription}</p>
+          </motion.div>
+
+          <div className="portfolio-gallery-grid">
+            {t.portfolio.items.map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="portfolio-gallery-item-wrapper"
+              >
+                <motion.div
+                  className="portfolio-gallery-item"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.03 }}
+                >
+                  <div className="portfolio-screenshot">
+                    <img src={getImagePath(item.title)} alt={item.title} loading="lazy" />
+                  </div>
+                  <div className="portfolio-hover-overlay">
+                    <span className="portfolio-link-hint">↗</span>
+                  </div>
+                </motion.div>
+                <div className="portfolio-info">
+                  <h4>{item.title}</h4>
+                  <p>{item.category}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Back to Main Page Button */}
+          <motion.div
+            className="portfolio-gallery-back-button"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <motion.a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                window.location.hash = ''
+                window.scrollTo(0, 0)
+              }}
+              className="cta-button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{ textDecoration: 'none', display: 'inline-block' }}
+            >
+              {t.portfolio.backToMain}
+            </motion.a>
+          </motion.div>
+        </div>
+      </div>
+    </LanguageContext.Provider>
+  )
+}
+
 // Main App Component
 function App() {
   const [language, setLanguage] = useState('sk')
@@ -1379,10 +1556,28 @@ function App() {
           </motion.p>
         </div>
         <div className="portfolio-grid">
-          {portfolio.map((item, index) => (
+          {portfolio.slice(0, 3).map((item, index) => (
             <PortfolioItem key={index} {...item} delay={index * 0.1} />
           ))}
         </div>
+        <motion.div
+          className="portfolio-see-all"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <motion.a
+            href="#all-projects"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-button see-all-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {t.portfolio.seeAll}
+          </motion.a>
+        </motion.div>
       </section>
 
       {/* Tech Stack */}
@@ -1606,4 +1801,25 @@ function App() {
   )
 }
 
-export default App
+// Router component to handle hash-based navigation
+function AppRouter() {
+  const [currentHash, setCurrentHash] = useState(window.location.hash)
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash)
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  // If hash is #all-projects, show the portfolio gallery page
+  if (currentHash === '#all-projects') {
+    return <PortfolioGalleryPage />
+  }
+
+  // Otherwise show the main app
+  return <App />
+}
+
+export default AppRouter

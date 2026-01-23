@@ -536,6 +536,16 @@ footer {
   transition: opacity 0.3s ease;
 }
 
+.portfolio-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  will-change: opacity;
+  transition: opacity 0.3s ease;
+}
+
 /* Loading placeholder for lazy iframes */
 .portfolio-preview-placeholder {
   position: absolute;
@@ -1489,5 +1499,202 @@ footer {
   .contact-info-card,
   .social-media-card {
     padding: 1.5rem;
+  }
+}
+
+/* Portfolio See All Button */
+.portfolio-see-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.see-all-button {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+}
+
+/* Portfolio Gallery Page */
+.portfolio-gallery-page {
+  min-height: 100vh;
+  position: relative;
+}
+
+.portfolio-gallery-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-dark);
+  z-index: -1;
+}
+
+.portfolio-gallery-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-gallery-nav .logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.portfolio-gallery-content {
+  min-height: 100vh;
+  padding: 4rem 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.portfolio-gallery-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+
+.portfolio-gallery-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin: 1rem 0;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.portfolio-gallery-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.portfolio-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Back to Main Page Button */
+.portfolio-gallery-back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+/* Portfolio item wrapper - matches main page */
+.portfolio-gallery-item-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.portfolio-gallery-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(178, 75, 243, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.portfolio-gallery-item:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+}
+
+/* Screenshot image */
+.portfolio-screenshot {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.portfolio-screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-gallery-item:hover .portfolio-screenshot img {
+  transform: scale(1.05);
+}
+
+/* Hover overlay - same as main page */
+.portfolio-gallery-item .portfolio-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(178, 75, 243, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-gallery-item:hover .portfolio-hover-overlay {
+  opacity: 1;
+}
+
+/* Info below the preview - matches main page */
+.portfolio-gallery-item-wrapper .portfolio-info {
+  padding: 1.25rem 0.5rem;
+}
+
+.portfolio-gallery-item-wrapper .portfolio-info h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.portfolio-gallery-item-wrapper .portfolio-info p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Portfolio Gallery Responsive */
+@media (max-width: 900px) {
+  .portfolio-gallery-content {
+    padding: 3rem 1.5rem 3rem;
+  }
+
+  .portfolio-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-gallery-nav {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .portfolio-gallery-header h1 {
+    font-size: 2rem;
+  }
+
+  .portfolio-gallery-grid {
+    gap: 1.5rem;
   }
 }
