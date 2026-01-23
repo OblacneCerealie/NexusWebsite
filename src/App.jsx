@@ -159,7 +159,7 @@ const translations = {
       readyTitle: 'Pripravení začať váš projekt?',
       readyDescription: 'Kontaktujte nás a porozprávajme sa o tom, ako vám môžeme pomôcť oživiť vašu víziu.',
       address: 'Bratislava, Slovensko',
-      email: 'nexusskweb@gmail.com',
+      email: 'webnexussk@gmail.com',
       phone: '+421 944 110 266'
     },
     // Contact Page Modal
@@ -347,7 +347,7 @@ const translations = {
       readyTitle: 'Ready to start your project?',
       readyDescription: "Get in touch with us and let's discuss how we can help bring your vision to life.",
       address: 'Bratislava, Slovakia',
-      email: 'nexusskweb@gmail.com',
+      email: 'webnexussk@gmail.com',
       phone: '+421 944 110 266'
     },
     // Contact Page Modal
@@ -1157,7 +1157,7 @@ function PortfolioGalleryPage() {
           from_name: formData.name,
           email: formData.email,
           message: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-          to: 'placeholder@gmail.com'
+          to: 'webnexussk@gmail.com'
         })
       })
 
@@ -1413,7 +1413,7 @@ function App() {
           from_name: formData.name,
           email: formData.email,
           message: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-          to: 'placeholder@gmail.com' // Recipient email address
+          to: 'webnexussk@gmail.com' // Recipient email address
         })
       })
 
