@@ -1102,15 +1102,85 @@ function LanguageToggle() {
 function PortfolioGalleryPage() {
   const [language, setLanguage] = useState('sk')
   const [scrolled, setScrolled] = useState(false)
+  const [showContactPage, setShowContactPage] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
   const t = translations[language]
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 100)
+      setScrolled(window.scrollY > 50)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const web3formsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+      
+      if (!web3formsAccessKey) {
+        throw new Error('Web3Forms API key is not configured. Please set VITE_WEB3FORMS_ACCESS_KEY in your .env file.')
+      }
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: web3formsAccessKey,
+          subject: `New Contact Form Submission from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+          to: 'placeholder@gmail.com'
+        })
+      })
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message')
+      }
+
+      setShowContactPage(false)
+      setShowSuccessModal(true)
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      })
+    } catch (error) {
+      console.error('Error sending email:', error)
+      alert(`Sorry, there was an error sending your message: ${error.message}. Please make sure you have set up Web3Forms (get free API key at web3forms.com) or check the console for details.`)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
@@ -1124,16 +1194,44 @@ function PortfolioGalleryPage() {
           </div>
         </div>
 
-        {/* Header with logo and language toggle - appears on scroll */}
-        <motion.div 
-          className={`portfolio-gallery-nav ${scrolled ? 'visible' : ''}`}
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: scrolled ? 0 : -100, opacity: scrolled ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <a href="/" className="logo gradient-text">NEXUS</a>
-          <LanguageToggle />
-        </motion.div>
+        {/* Navigation - Full navbar like main page */}
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+          <motion.div
+            className="logo gradient-text"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }} style={{ textDecoration: 'none', color: 'inherit' }}>
+              NEXUS
+            </a>
+          </motion.div>
+          <motion.ul
+            className="nav-links"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <li><a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }}>{t.nav.services}</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }}>{t.nav.work}</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }}>{t.nav.process}</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; window.scrollTo(0, 0); }}>{t.nav.contact}</a></li>
+          </motion.ul>
+          <div className="nav-right">
+            <LanguageToggle />
+            <motion.button
+              className="cta-button"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowContactPage(true)}
+            >
+              {t.nav.startProject}
+            </motion.button>
+          </div>
+        </nav>
 
         {/* Content */}
         <div className="portfolio-gallery-content">
@@ -1165,7 +1263,15 @@ function PortfolioGalleryPage() {
                   whileHover={{ scale: 1.03 }}
                 >
                   <div className="portfolio-screenshot">
-                    <img src={getImagePath(item.title)} alt={item.title} loading="lazy" />
+                    <img 
+                      src={getImagePath(item.title)} 
+                      alt={item.title} 
+                      loading="lazy"
+                      onError={(e) => {
+                        console.error('Failed to load image:', getImagePath(item.title), e);
+                        e.target.style.display = 'none';
+                      }}
+                    />
                   </div>
                   <div className="portfolio-hover-overlay">
                     <span className="portfolio-link-hint">↗</span>
@@ -1202,6 +1308,39 @@ function PortfolioGalleryPage() {
             </motion.a>
           </motion.div>
         </div>
+
+        {/* Footer - Same as main page */}
+        <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <div className="logo gradient-text">NEXUS</div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>{t.footer.copyright}</p>
+            <div className="social-links">
+              <a href="https://www.instagram.com/nexus_slovakia?igsh=MTQzOXQzenNoNTJ5cA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">◎</a>
+              <a href="https://www.facebook.com/share/1DJ9jQmiFA/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">f</a>
+              <a href="https://www.linkedin.com/in/sebastian-michalko-1a0602267/" target="_blank" rel="noopener noreferrer">in</a>
+            </div>
+          </div>
+        </footer>
+
+        {/* Success Modal */}
+        <SuccessModal 
+          isOpen={showSuccessModal} 
+          onClose={() => setShowSuccessModal(false)} 
+        />
+
+        {/* Contact Page Modal */}
+        <ContactPageModal
+          isOpen={showContactPage}
+          onClose={() => setShowContactPage(false)}
+          formData={formData}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
       </div>
     </LanguageContext.Provider>
   )
@@ -1569,8 +1708,6 @@ function App() {
         >
           <motion.a
             href="#all-projects"
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-button see-all-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
