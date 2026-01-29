@@ -826,6 +826,18 @@ function SuccessModal({ isOpen, onClose }) {
   const { language } = useContext(LanguageContext)
   const t = translations[language]
   
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+  
   return (
     <AnimatePresence>
       {isOpen && (
@@ -837,25 +849,27 @@ function SuccessModal({ isOpen, onClose }) {
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-          <motion.div
-            className="success-modal"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            <div className="modal-icon">✓</div>
-            <h3>{t.successModal.title}</h3>
-            <p>{t.successModal.description}</p>
-            <motion.button
-              className="modal-close-button"
-              onClick={onClose}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          <div className="success-modal-wrapper">
+            <motion.div
+              className="success-modal"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
-              {t.successModal.close}
-            </motion.button>
-          </motion.div>
+              <div className="modal-icon">✓</div>
+              <h3>{t.successModal.title}</h3>
+              <p>{t.successModal.description}</p>
+              <motion.button
+                className="modal-close-button"
+                onClick={onClose}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t.successModal.close}
+              </motion.button>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
@@ -1274,7 +1288,7 @@ function App() {
           from_name: formData.name,
           email: formData.email,
           message: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-          to: 'placeholder@gmail.com' // Recipient email address
+          to: 'webnexussk@gmail.com' // Recipient email address
         })
       })
 
