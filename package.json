@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "mkdir -p public/still_images && cp still_images/*.png public/still_images/ 2>/dev/null || true",
     "build": "vite build",
     "preview": "vite preview"
   },
